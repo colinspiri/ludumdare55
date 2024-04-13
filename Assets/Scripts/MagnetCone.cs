@@ -17,7 +17,6 @@ public class MagnetCone : MonoBehaviour {
     }
 
     private void SwitchPolarity() {
-        Debug.Log("switching polarity");
         _currentPolarity = _currentPolarity switch {
             Polarity.Positive => Polarity.Negative,
             Polarity.Negative => Polarity.Positive,
@@ -34,16 +33,10 @@ public class MagnetCone : MonoBehaviour {
         };
     }
 
-    private void OnTriggerEnter2D(Collider2D col) {
-        var enemy = col.gameObject.GetComponent<Enemy>();
-        if (enemy != null) {
-            // enemy.SetInVision(true);
-        }
-    }
-    private void OnTriggerExit2D(Collider2D other) {
-        var enemy = other.gameObject.GetComponent<Enemy>();
-        if (enemy != null) {
-            // enemy.SetInVision(false);
+    private void OnTriggerStay2D(Collider2D col) {
+        var magneticObject = col.gameObject.GetComponent<MagneticObject>();
+        if (magneticObject != null) {
+            if(magneticObject.polarity == _currentPolarity) magneticObject.AttractToMagnet();
         }
     }
 }
