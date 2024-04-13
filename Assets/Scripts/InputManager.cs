@@ -73,7 +73,6 @@ public class InputManager : MonoBehaviour
         if(gameObject.activeInHierarchy) StartCoroutine("ResetFireStart");
     }
 
-   
     private IEnumerator ResetFireStart()
     {
         yield return new WaitForEndOfFrame();
