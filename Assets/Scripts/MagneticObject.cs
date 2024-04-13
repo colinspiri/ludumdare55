@@ -40,14 +40,13 @@ public class MagneticObject : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && attractedToPlayer)
         {
             isTouchingPlayer = true;
 
             transform.SetParent(other.transform);
 
             rb.isKinematic = true;
-
         }
     }
 }

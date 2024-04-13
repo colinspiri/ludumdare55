@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour
+{
     public float speed;
 
-    void Update() {
+    void Update()
+    {
         var player = PlayerController.Instance;
         if (player != null)
         {
@@ -24,5 +26,23 @@ public class Enemy : MonoBehaviour {
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+        else
+        {
+            var magneticObject = other.gameObject.GetComponent<MagneticObject>();
+
+            if (magneticObject != null)
+            {
+                if (magneticObject.attractedToPlayer)
+                {
+                    Destroy(this.gameObject);
+                }
+            }
+        }
+
+        /*        if (other.gameObject.CompareTag("Magnetic Object"))
+                {
+                    Destroy(this.gameObject);
+
+                }*/
     }
 }
