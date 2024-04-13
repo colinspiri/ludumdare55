@@ -33,10 +33,21 @@ public class MagnetCone : MonoBehaviour {
         };
     }
 
-    private void OnTriggerStay2D(Collider2D col) {
+    private void OnTriggerStay2D(Collider2D col)
+    {
         var magneticObject = col.gameObject.GetComponent<MagneticObject>();
-        if (magneticObject != null) {
-            if(magneticObject.polarity == _currentPolarity) magneticObject.AttractToMagnet();
+        if (magneticObject != null)
+        {
+            if (magneticObject.polarity == _currentPolarity) magneticObject.AttractToMagnet();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        var magneticObject = collision.gameObject.GetComponent<MagneticObject>();
+        if (magneticObject != null)
+        {
+            magneticObject.attractedToPlayer = false;
         }
     }
 }
