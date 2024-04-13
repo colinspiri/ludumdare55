@@ -17,11 +17,15 @@ public class CameraShake : MonoBehaviour {
     void Update()
     {
         if (Input.GetKeyDown(cameraShakeTestKey)) {
-            StartCoroutine(Shake());
+            StartCoroutine(ShakeCoroutine());
         }
     }
 
-    public IEnumerator Shake(float magnitude = 0.4f) {
+    public void Shake(float magnitude = 0.4f) {
+        StartCoroutine(ShakeCoroutine(magnitude));
+    }
+
+    public IEnumerator ShakeCoroutine(float magnitude = 0.4f) {
         Vector3 originalPos = transform.localPosition;
 
         float elapsed = 0.0f;

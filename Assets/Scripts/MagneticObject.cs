@@ -15,6 +15,7 @@ public class MagneticObject : MonoBehaviour
     private Vector3 startingPosition;
     private Transform vibrateTarget;
     public float vibrateRange;
+    public float cameraShakeMagnitudeOnCollision;
     Collider2D objectCol;
     Collider2D coneCol;
     float colliderDistance;
@@ -64,6 +65,8 @@ public class MagneticObject : MonoBehaviour
         if (other.gameObject.CompareTag("Player") && attractedToPlayer)
         {
             isTouchingPlayer = true;
+            
+            CameraShake.Instance.Shake(cameraShakeMagnitudeOnCollision);
 
             transform.SetParent(other.transform);
 

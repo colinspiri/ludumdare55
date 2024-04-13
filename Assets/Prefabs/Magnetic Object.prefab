@@ -101,9 +101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   polarity: 0
   attractedToPlayer: 0
-  attractionSpeed: 10
-  vibrateAmount: 0.05
+  attractionSpeed: 12
+  vibrateAmount: 0.18
   vibrateRange: 4
+  cameraShakeMagnitudeOnCollision: 0.4
 --- !u!60 &5142860722217570549
 PolygonCollider2D:
   m_ObjectHideFlags: 0
