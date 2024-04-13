@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] private Rigidbody2D rigidBody;
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float backwardsMoveSpeed;
     
     private void Awake() {
         Instance = this;
@@ -55,11 +54,11 @@ public class PlayerController : MonoBehaviour {
 
         float dot = Vector3.Dot(movement, transform.right);
         float f = (dot + 1) / 2.0f;
-        float speed = Mathf.Lerp(backwardsMoveSpeed, moveSpeed, f);
+        // float speed = Mathf.Lerp(backwardsMoveSpeed, moveSpeed, f);
         // Debug.Log("dot = " + dot + ", f = " + f + ", speed = " + speed);
         
         // Move the player's transform
-        transform.position = transform.position + (movement * Time.deltaTime * speed);
+        transform.position = transform.position + (movement * Time.deltaTime * moveSpeed);
     }
 
     private void LookAtPoint(Vector3 point)
