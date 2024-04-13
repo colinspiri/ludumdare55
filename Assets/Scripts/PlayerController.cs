@@ -67,7 +67,8 @@ public class PlayerController : MonoBehaviour {
         if (Time.timeScale > 0)
         {
             // Rotate the player to look at the mouse.
-            Vector2 lookDirection = Camera.main.ScreenToWorldPoint(point) - transform.position;
+            var screenToWorldPoint = Camera.main.ScreenToWorldPoint(point);
+            Vector2 lookDirection = screenToWorldPoint - transform.position;
 
             transform.right = lookDirection;
         }
