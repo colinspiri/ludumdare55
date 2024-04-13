@@ -7,8 +7,6 @@ public class MagneticObject : MonoBehaviour
     public Polarity polarity;
     Vector2 playerPosition;
     [HideInInspector] public bool attractedToPlayer;
-    public GameObject player;
-    public GameObject cone;
     private Rigidbody2D rb;
     public float attractionSpeed;
     private bool isTouchingPlayer;
@@ -16,7 +14,6 @@ public class MagneticObject : MonoBehaviour
     public float vibrateAmount;
     private Vector3 startingPosition;
     private Transform vibrateTarget;
-    public bool vibrateEnabled;
     public float vibrateRange;
     Collider2D objectCol;
     Collider2D coneCol;
@@ -33,7 +30,7 @@ public class MagneticObject : MonoBehaviour
         vibrateTarget = GetComponent<Transform>();
         startingPosition = vibrateTarget.position;
         objectCol = GetComponent<Collider2D>();
-        coneCol = cone.GetComponent<Collider2D>();
+        coneCol = MagnetCone.Instance.GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -42,13 +39,13 @@ public class MagneticObject : MonoBehaviour
         if (attractedToPlayer && isTouchingPlayer == false)
         {
             // we could dotween to add an ease
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, attractionSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, PlayerController.Instance.transform.position, attractionSpeed * Time.deltaTime);
         }
 
         colliderDistance = Physics2D.Distance(objectCol, coneCol).distance;
 
         if (colliderDistance < vibrateRange && !isTouchingCone && !attractedToPlayer && 
-            !isTouchingPlayer && cone.GetComponent<MagnetCone>().GetConePolarity() == polarity)
+            !isTouchingPlayer && MagnetCone.Instance.GetConePolarity() == polarity)
         {
             var point = new Vector3(Random.Range(startingPosition.x - vibrateAmount, startingPosition.x + vibrateAmount),
                 Random.Range(startingPosition.y - vibrateAmount, startingPosition.y + vibrateAmount), startingPosition.z);

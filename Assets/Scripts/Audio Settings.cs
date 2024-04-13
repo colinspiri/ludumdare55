@@ -11,12 +11,10 @@ public class AudioSettings : ScriptableObject
         Master,
         Music,
         SFX,
-        Dialogue
     }
     public float defaultMasterVolume;
     public float defaultMusicVolume;
     public float defaultSFXVolume;
-    public float defaultDialogueVolume;
 
 
     public void Initialize()
@@ -24,7 +22,6 @@ public class AudioSettings : ScriptableObject
         SetVolume(Channel.Master, GetVolume(Channel.Master));
         SetVolume(Channel.Music, GetVolume(Channel.Music));
         SetVolume(Channel.SFX, GetVolume(Channel.SFX));
-        SetVolume(Channel.Dialogue, GetVolume(Channel.Dialogue));
     }
 
     public void ChangeVolume(Channel mixerChannel, float value)
@@ -40,7 +37,6 @@ public class AudioSettings : ScriptableObject
             Channel.Master => defaultMasterVolume,
             Channel.Music => defaultMusicVolume,
             Channel.SFX => defaultSFXVolume,
-            Channel.Dialogue => defaultDialogueVolume,
             _ => throw new ArgumentOutOfRangeException(nameof(mixerChannel), mixerChannel, null)
         };
         return PlayerPrefs.GetFloat(mixerChannel.ToString() + "Volume", defaultVolume);

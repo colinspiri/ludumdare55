@@ -2,11 +2,17 @@
 using UnityEngine;
 
 public class MagnetCone : MonoBehaviour {
+    public static MagnetCone Instance;
+    
     [SerializeField] private SpriteRenderer coneSprite;
     [SerializeField] private Color positiveColor;
     [SerializeField] private Color negativeColor;
     
     private Polarity _currentPolarity;
+
+    private void Awake() {
+        Instance = this;
+    }
 
     private void Start() {
         UpdateSprite();
