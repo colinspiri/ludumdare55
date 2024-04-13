@@ -12,15 +12,6 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float moveSpeed;
     [SerializeField] private float backwardsMoveSpeed;
     
-    public enum AimModes { AimTowardsMouse, AimForwards };
-    public AimModes aimMode = AimModes.AimTowardsMouse;
-
- 
-    public enum MovementModes {  FreeRoam};
-    public MovementModes movementMode = MovementModes.FreeRoam;
-    
-    private bool canAimWithMouse => aimMode == AimModes.AimTowardsMouse;
-
     private void Awake() {
         Instance = this;
     }
@@ -50,14 +41,8 @@ public class PlayerController : MonoBehaviour {
     {
         Vector2 result = transform.up;
         
-        if (aimMode != AimModes.AimForwards)
-        {
-            result = new Vector2(InputManager.Instance.horizontalLookAxis, InputManager.Instance.verticalLookAxis);
-        }
-        else
-        {
-            result = transform.up;
-        }
+        result = new Vector2(InputManager.Instance.horizontalLookAxis, InputManager.Instance.verticalLookAxis);
+        
         return result;
     }
 
@@ -84,17 +69,7 @@ public class PlayerController : MonoBehaviour {
             // Rotate the player to look at the mouse.
             Vector2 lookDirection = Camera.main.ScreenToWorldPoint(point) - transform.position;
 
-            if (canAimWithMouse)
-            {
-                transform.right = lookDirection;
-            }
-            else
-            {
-                if (rigidBody != null)
-                {
-                    rigidBody.freezeRotation = true;
-                }
-            }
+            transform.right = lookDirection;
         }
     }
 }
