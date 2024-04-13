@@ -50,6 +50,11 @@ public class MagnetCone : MonoBehaviour {
             magneticObject.attractedToPlayer = false;
         }
     }
+
+    public Polarity GetConePolarity()
+    {
+        return _currentPolarity;
+    }
 }
 
 public enum Polarity { Positive, Negative }
