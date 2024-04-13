@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class Enemy : MonoBehaviour
 {
     public float speed;
+    public ParticleSystem deathParticles;
 
     void Update()
     {
@@ -30,19 +31,11 @@ public class Enemy : MonoBehaviour
         {
             var magneticObject = other.gameObject.GetComponent<MagneticObject>();
 
-            if (magneticObject != null)
+            if (magneticObject != null && magneticObject.attractedToPlayer)
             {
-                if (magneticObject.attractedToPlayer)
-                {
-                    Destroy(this.gameObject);
-                }
+                Instantiate(deathParticles, transform.position, Quaternion.identity);
+                Destroy(gameObject);
             }
         }
-
-        /*        if (other.gameObject.CompareTag("Magnetic Object"))
-                {
-                    Destroy(this.gameObject);
-
-                }*/
     }
 }
