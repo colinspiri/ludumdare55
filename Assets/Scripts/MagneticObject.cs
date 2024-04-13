@@ -18,7 +18,6 @@ public class MagneticObject : MonoBehaviour
     Collider2D objectCol;
     Collider2D coneCol;
     float colliderDistance;
-    private Vector3 currentPosition;
 
 
     // Start is called before the first frame update
@@ -36,7 +35,7 @@ public class MagneticObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (attractedToPlayer && isTouchingPlayer == false)
+        if (attractedToPlayer)
         {
             // we could dotween to add an ease
             transform.position = Vector2.MoveTowards(transform.position, PlayerController.Instance.transform.position, attractionSpeed * Time.deltaTime);
@@ -69,6 +68,10 @@ public class MagneticObject : MonoBehaviour
             transform.SetParent(other.transform);
 
             rb.isKinematic = true;
+
+            attractedToPlayer = false;
+
+            Debug.Log("collided with player");
         }
 
         if (other.gameObject.CompareTag("Cone"))
@@ -76,51 +79,4 @@ public class MagneticObject : MonoBehaviour
             isTouchingCone = true;
         }
     }
-
-/*    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player") && attractedToPlayer)
-        {
-            isTouchingPlayer = true;
-
-            transform.SetParent(other.transform);
-
-            rb.isKinematic = true;
-        }
-
-        if (other.gameObject.CompareTag("Cone"))
-        {
-            isTouchingCone = true;
-        }
-
-*//*        if (other.gameObject.CompareTag("Cone Vibrate Collider"))
-        {
-            Debug.Log("collided");
-            vibrateEnabled = true;
-        }*//*
-    }*/
-
-/*    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Cone Vibrate Collider"))
-        {
-            vibrateEnabled = false;
-        }
-
-*//*        if (collision.gameObject.CompareTag("Player") && attractedToPlayer)
-        {
-            isTouchingPlayer = false;
-
-            //transform.SetParent(collision.transform);
-            transform.position = transform.localPosition;
-            transform.parent = null;
-
-            rb.isKinematic = false;
-        }
-
-        if (collision.gameObject.CompareTag("Cone"))
-        {
-            isTouchingCone = false;
-        }*//*
-    }*/
 }
