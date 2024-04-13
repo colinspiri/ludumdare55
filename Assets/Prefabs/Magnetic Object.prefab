@@ -101,12 +101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   polarity: 0
   attractedToPlayer: 0
-  player: {fileID: 0}
-  cone: {fileID: 0}
-  attractionSpeed: 5
+  attractionSpeed: 10
   vibrateAmount: 0.05
-  vibrateEnabled: 0
-  vibrateRange: 2
+  vibrateRange: 4
 --- !u!60 &5142860722217570549
 PolygonCollider2D:
   m_ObjectHideFlags: 0
