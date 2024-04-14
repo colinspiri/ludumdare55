@@ -28,7 +28,9 @@ public class MagnetCone : MonoBehaviour {
             Polarity.Negative => Polarity.Positive,
             _ => throw new ArgumentOutOfRangeException()
         };
+        
         UpdateSprite();
+        AudioManager.Instance.SwitchPolarity(_currentPolarity);
     }
 
     private void UpdateSprite() {

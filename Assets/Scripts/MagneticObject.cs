@@ -79,22 +79,23 @@ public class MagneticObject : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && attractedToPlayer)
         {
-            isTouchingPlayer = true;
-            
-            CameraShake.Instance.Shake(cameraShakeMagnitudeOnCollision);
-
             transform.SetParent(other.transform);
-
-            rb.isKinematic = true;
-
-            attractedToPlayer = false;
-
-            Debug.Log("collided with player");
+            HitPlayer();
         }
 
         if (other.gameObject.CompareTag("Cone"))
         {
             isTouchingCone = true;
         }
+    }
+
+    private void HitPlayer() {
+        isTouchingPlayer = true;
+        rb.isKinematic = true;
+        
+        attractedToPlayer = false;
+        
+        CameraShake.Instance.Shake(cameraShakeMagnitudeOnCollision);
+        AudioManager.Instance.PlayHitMagnet();
     }
 }

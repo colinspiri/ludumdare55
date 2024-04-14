@@ -5,13 +5,15 @@ using UnityEngine.SceneManagement;
 public class AudioManager : MonoBehaviour {
     public static AudioManager Instance;
     
-    public AudioMixer mixer;
+    [SerializeField] private AudioMixer mixer;
     
     [Header("Music")]
-    public AudioSource music;
+    [SerializeField] private AudioSource music;
     
     [Header("SFX")]
-    public AudioSource recordScratch;
+    [SerializeField] private AudioSource polarity_positive;
+    [SerializeField] private AudioSource polarity_negative;
+    [SerializeField] private AudioSource hit_magnet;
 
     private void Awake() {
         if (Instance != null) {
@@ -43,5 +45,18 @@ public class AudioManager : MonoBehaviour {
     }
     public void ResumeAudio() {
         
+    }
+
+    public void SwitchPolarity(Polarity polarity) {
+        if (polarity == Polarity.Positive) {
+            polarity_positive.Play();
+        }
+        else if (polarity == Polarity.Negative) {
+            polarity_negative.Play();
+        }
+    }
+
+    public void PlayHitMagnet() {
+        hit_magnet.Play();
     }
 }
