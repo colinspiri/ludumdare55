@@ -507,6 +507,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: --LEVEL--
       objectReference: {fileID: 0}
+    - target: {fileID: 5926423523063271093, guid: 46a6face45aa5475a8ff3c79fa1dd961, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322381455230176324, guid: 46a6face45aa5475a8ff3c79fa1dd961, type: 3}
+      propertyPath: repelTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322381455230176324, guid: 46a6face45aa5475a8ff3c79fa1dd961, type: 3}
+      propertyPath: repelSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322381455230176324, guid: 46a6face45aa5475a8ff3c79fa1dd961, type: 3}
+      propertyPath: repelDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322381455230176324, guid: 46a6face45aa5475a8ff3c79fa1dd961, type: 3}
+      propertyPath: attractionTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8706485766807542637, guid: 46a6face45aa5475a8ff3c79fa1dd961, type: 3}
+      propertyPath: repelTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8706485766807542637, guid: 46a6face45aa5475a8ff3c79fa1dd961, type: 3}
+      propertyPath: repelSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8706485766807542637, guid: 46a6face45aa5475a8ff3c79fa1dd961, type: 3}
+      propertyPath: repelDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8706485766807542637, guid: 46a6face45aa5475a8ff3c79fa1dd961, type: 3}
+      propertyPath: attractionTime
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
