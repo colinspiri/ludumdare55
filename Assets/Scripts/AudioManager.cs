@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour {
     [SerializeField] private AudioSource polarity_positive;
     [SerializeField] private AudioSource polarity_negative;
     [SerializeField] private AudioSource hit_magnet;
+    [SerializeField] private AudioSource splat;
 
     private void Awake() {
         if (Instance != null) {
@@ -58,5 +59,9 @@ public class AudioManager : MonoBehaviour {
 
     public void PlayHitMagnet() {
         hit_magnet.Play();
+    }
+
+    public void PlaySplat() {
+        splat.Play();
     }
 }

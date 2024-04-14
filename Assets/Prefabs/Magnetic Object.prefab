@@ -190,7 +190,11 @@ MonoBehaviour:
   negativeColor: {r: 0.22352941, g: 0.6431373, b: 1, a: 1}
   attractedToPlayer: 0
   attractionSpeed: 12
+  attractionTime: 1
+  isTouchingCone: 0
   vibrateAmount: 0.18
+  repelDistance: 8
+  repelTime: 0.5
   vibrateRange: 4
   cameraShakeMagnitudeOnCollision: 0.4
 --- !u!60 &5142860722217570549

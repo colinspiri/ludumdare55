@@ -33,9 +33,14 @@ public class Enemy : MonoBehaviour
 
             if (magneticObject != null && magneticObject.attractedToPlayer)
             {
-                Instantiate(deathParticles, transform.position, Quaternion.identity);
-                Destroy(gameObject);
+                Die();
             }
         }
+    }
+
+    private void Die() {
+        Instantiate(deathParticles, transform.position, Quaternion.identity);
+        AudioManager.Instance.PlaySplat();
+        Destroy(gameObject);
     }
 }
