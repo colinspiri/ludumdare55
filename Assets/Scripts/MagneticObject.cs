@@ -1,10 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MagneticObject : MonoBehaviour
 {
     public Polarity polarity;
+    [SerializeField] private SpriteRenderer polarityIcon;
+    [SerializeField] private Color positiveColor;
+    [SerializeField] private Color negativeColor;
     Vector2 playerPosition;
     [HideInInspector] public bool attractedToPlayer;
     private Rigidbody2D rb;
@@ -31,6 +36,16 @@ public class MagneticObject : MonoBehaviour
         startingPosition = vibrateTarget.position;
         objectCol = GetComponent<Collider2D>();
         coneCol = MagnetCone.Instance.GetComponent<Collider2D>();
+
+        UpdateSprite();
+    }
+    
+    private void UpdateSprite() {
+        polarityIcon.color = polarity switch {
+            Polarity.Positive => positiveColor,
+            Polarity.Negative => negativeColor,
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 
     // Update is called once per frame
