@@ -52,6 +52,7 @@ MonoBehaviour:
   firePressed: 0
   fireHeld: 0
   pausePressed: 0
+  restartKey: 114
 --- !u!114 &5150933199415577088
 MonoBehaviour:
   m_ObjectHideFlags: 0

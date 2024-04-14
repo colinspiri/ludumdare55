@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 // This class handles reading the input given by the player through input devices
 // Script is based from Coursera Game Design and Development 1: 2D Shooter project from MSU
@@ -92,5 +94,14 @@ public class InputManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         pausePressed = false;
+    }
+
+    [Header("Restart")] 
+    public KeyCode restartKey;
+
+    private void Update() {
+        if (Input.GetKeyDown(restartKey)) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }
