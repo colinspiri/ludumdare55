@@ -43,22 +43,13 @@ public class MagnetCone : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("cone collided");
         var magneticObject = col.gameObject.GetComponent<MagneticObject>();
         if (magneticObject != null)
         {
             if (magneticObject.polarity == _currentPolarity) magneticObject.AttractToMagnet();
+            magneticObject.isTouchingCone = true;
         }
     }
-
-/*    private void OnTriggerExit2D(Collider2D collision)
-    {
-        var magneticObject = collision.gameObject.GetComponent<MagneticObject>();
-        if (magneticObject != null)
-        {
-            magneticObject.attractedToPlayer = false;
-        }
-    }*/
 
     public Polarity GetConePolarity()
     {
