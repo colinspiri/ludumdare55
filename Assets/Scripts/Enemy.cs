@@ -31,9 +31,11 @@ public class Enemy : MonoBehaviour
         {
             var magneticObject = other.gameObject.GetComponent<MagneticObject>();
 
-            if (magneticObject != null && magneticObject.attractedToPlayer)
+            if (magneticObject != null)
             {
-                Die();
+                if (magneticObject.Moving) {
+                    Die();
+                }
             }
         }
     }

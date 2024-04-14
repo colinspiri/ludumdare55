@@ -190,15 +190,13 @@ MonoBehaviour:
   polarityIcon: {fileID: 3046034576737345640}
   positiveColor: {r: 1, g: 0.2971698, b: 0.2971698, a: 1}
   negativeColor: {r: 0.22352941, g: 0.6431373, b: 1, a: 1}
-  attractedToPlayer: 0
-  attractionSpeed: 12
   attractionTime: 1
   isTouchingCone: 0
   vibrateAmount: 0.18
   repelDistance: 8
   repelTime: 0.5
   vibrateRange: 4
-  cameraShakeMagnitudeOnCollision: 0.4
+  cameraShakeMagnitudeOnCollision: 0.6
   sfx_vibrate: {fileID: 7234731908760595329}
   sfx_whoosh: {fileID: 8861629937666647077}
 --- !u!60 &5142860722217570549

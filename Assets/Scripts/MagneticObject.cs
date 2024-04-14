@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using DG.Tweening;
+using UnityEditor.U2D;
+using UnityEngine.UIElements;
 
 public class MagneticObject : MonoBehaviour
 {
@@ -12,11 +14,10 @@ public class MagneticObject : MonoBehaviour
     [SerializeField] private Color positiveColor;
     [SerializeField] private Color negativeColor;
     Vector2 playerPosition;
-    [HideInInspector] public bool attractedToPlayer;
+    // [HideInInspector] public bool attractedToPlayer;
     private Rigidbody2D rb;
-    public float attractionSpeed;
     public float attractionTime;
-    private bool isTouchingPlayer;
+    // private bool isTouchingPlayer;
     public bool isTouchingCone;
     public float vibrateAmount;
     public float repelDistance;
@@ -34,22 +35,25 @@ public class MagneticObject : MonoBehaviour
     [SerializeField] private AudioSource sfx_vibrate;
     [SerializeField] private AudioSource sfx_whoosh;
 
-    Sequence attractSequence;
     Sequence repelSequence;
+    
+    private enum MagneticState { OnPlayer, Attracted, Repelled, None }
+    private MagneticState _state;
+    public bool Moving => _state is MagneticState.Attracted or MagneticState.Repelled;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        attractedToPlayer = false;
-        isTouchingPlayer = false;
+        // attractedToPlayer = false;
+        // isTouchingPlayer = false;
+        _state = MagneticState.None;
         rb = GetComponent<Rigidbody2D>();
         vibrateTarget = GetComponent<Transform>();
         startingPosition = vibrateTarget.position;
         objectCol = GetComponent<Collider2D>();
         coneCol = MagnetCone.Instance.GetComponent<Collider2D>();
         parent = transform.parent.gameObject;
-        attractSequence = DOTween.Sequence();
         repelSequence = DOTween.Sequence();
 
         UpdateSprite();
@@ -74,8 +78,7 @@ public class MagneticObject : MonoBehaviour
 
         colliderDistance = Physics2D.Distance(objectCol, coneCol).distance;
 
-        if (colliderDistance < vibrateRange && !isTouchingCone && !attractedToPlayer && 
-            !isTouchingPlayer && MagnetCone.Instance.GetConePolarity() == polarity)
+        if (colliderDistance < vibrateRange && !isTouchingCone && _state == MagneticState.None && MagnetCone.Instance.GetConePolarity() == polarity)
         {
             var point = new Vector3(Random.Range(startingPosition.x - vibrateAmount, startingPosition.x + vibrateAmount),
                 Random.Range(startingPosition.y - vibrateAmount, startingPosition.y + vibrateAmount), startingPosition.z);
@@ -93,55 +96,24 @@ public class MagneticObject : MonoBehaviour
 
     public void AttractToMagnet()
     {
-        //Debug.Log(transform.position);
-        //Debug.Log(gameObject.name + " is affected by magnet");
-
-        attractedToPlayer = true;
-
+        // attractedToPlayer = true;
         if (repelSequence.IsPlaying()) repelSequence.Kill();
+        
+        _state = MagneticState.Attracted;
 
         StartCoroutine(AttractCoroutine());
         
         sfx_whoosh.Play();
-
-/*        Tweener attractionTween = transform.DOMove(PlayerController.Instance.transform.position, attractionTime);
-
-        attractionTween.OnUpdate(() => {
-            if (!isTouchingPlayer)
-            {
-                //Debug.Log("is updating");
-                attractionTween.ChangeEndValue(PlayerController.Instance.transform.position, attractionTween.Duration() - attractionTween.Elapsed());
-                //Debug.Log(PlayerController.Instance.transform.position);
-            }
-        });*/
-        //attractSequence.Append(attractionTween);
     }
 
     private void RepelObject()
     {
-        //Debug.Log("time to repel");
-        if (attractSequence.IsPlaying()) attractSequence.Kill();
-        var point = PlayerController.Instance.transform.position + PlayerController.Instance.transform.right * repelDistance;
-
-        Vector3 vec = new Vector3(point.x, point.y, transform.position.z);
-
-        //transform.position = Vector2.MoveTowards(transform.position, point, attractionSpeed * Time.deltaTime);
-
-        isTouchingCone = false;
-        isTouchingPlayer = false;
-
-        transform.SetParent(parent.transform);
-
-        repelSequence.Append(transform.DOMove(vec, repelTime));
-
-        startingPosition = vec;
-        
-        sfx_whoosh.Play();
+        StartCoroutine(RepelCoroutine());
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player") && attractedToPlayer)
+        if (other.gameObject.CompareTag("Player") && _state == MagneticState.Attracted)
         {
             transform.SetParent(other.transform);
             HitPlayer();
@@ -149,8 +121,9 @@ public class MagneticObject : MonoBehaviour
     }
 
     private void HitPlayer() {
-        isTouchingPlayer = true;
-        attractedToPlayer = false;
+        _state = MagneticState.OnPlayer;
+        // isTouchingPlayer = true;
+        // attractedToPlayer = false;
 
         rb.constraints = RigidbodyConstraints2D.FreezePosition;
         positionOnCollision = transform.position;
@@ -163,7 +136,7 @@ public class MagneticObject : MonoBehaviour
     {
         float timeGoneBy = 0.0f;
 
-        while (timeGoneBy < attractionTime && !isTouchingPlayer)
+        while (timeGoneBy < attractionTime && _state == MagneticState.Attracted)
         {
             transform.position = Vector3.Lerp(transform.position, PlayerController.Instance.transform.position, timeGoneBy / attractionTime);
             timeGoneBy += Time.deltaTime;
@@ -171,5 +144,26 @@ public class MagneticObject : MonoBehaviour
         }
 
         transform.position = positionOnCollision;
+        _state = MagneticState.None;
+    }
+    
+    private IEnumerator RepelCoroutine()
+    {
+        var point = PlayerController.Instance.transform.position + PlayerController.Instance.transform.right * repelDistance;
+        Vector3 vec = new Vector3(point.x, point.y, transform.position.z);
+        
+        isTouchingCone = false;
+        _state = MagneticState.Repelled;
+
+        transform.SetParent(parent.transform);
+        
+        sfx_whoosh.Play();
+        
+        repelSequence.Append(transform.DOMove(vec, repelTime));
+        startingPosition = vec;
+
+        yield return repelSequence.WaitForCompletion();
+
+        _state = MagneticState.None;
     }
 }
