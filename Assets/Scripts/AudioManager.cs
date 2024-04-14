@@ -49,6 +49,7 @@ public class AudioManager : MonoBehaviour {
     }
 
     public void SwitchPolarity(Polarity polarity) {
+        return;
         if (polarity == Polarity.Positive) {
             polarity_positive.Play();
         }

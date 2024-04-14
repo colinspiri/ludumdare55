@@ -31,6 +31,9 @@ public class MagneticObject : MonoBehaviour
     private GameObject parent;
     private Vector3 positionOnCollision;
 
+    [SerializeField] private AudioSource sfx_vibrate;
+    [SerializeField] private AudioSource sfx_whoosh;
+
     Sequence attractSequence;
     Sequence repelSequence;
 
@@ -77,7 +80,10 @@ public class MagneticObject : MonoBehaviour
             var point = new Vector3(Random.Range(startingPosition.x - vibrateAmount, startingPosition.x + vibrateAmount),
                 Random.Range(startingPosition.y - vibrateAmount, startingPosition.y + vibrateAmount), startingPosition.z);
             vibrateTarget.position = point;
+            
+            if(!sfx_vibrate.isPlaying) sfx_vibrate.Play();
         }
+        else if(sfx_vibrate.isPlaying) sfx_vibrate.Stop();
 
         if ((isTouchingCone) && MagnetCone.Instance.GetConePolarity() != polarity)
         {
@@ -95,6 +101,8 @@ public class MagneticObject : MonoBehaviour
         if (repelSequence.IsPlaying()) repelSequence.Kill();
 
         StartCoroutine(AttractCoroutine());
+        
+        sfx_whoosh.Play();
 
 /*        Tweener attractionTween = transform.DOMove(PlayerController.Instance.transform.position, attractionTime);
 
@@ -127,6 +135,8 @@ public class MagneticObject : MonoBehaviour
         repelSequence.Append(transform.DOMove(vec, repelTime));
 
         startingPosition = vec;
+        
+        sfx_whoosh.Play();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
