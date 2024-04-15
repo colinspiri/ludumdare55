@@ -161,6 +161,12 @@ public class MagneticObject : MonoBehaviour
             HitWall();
             // have object bounce off a bit
         }
+
+        if (other.gameObject.CompareTag("Magnetic Object"))
+        {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
     }
 
     private void HitPlayer() {
