@@ -94,12 +94,19 @@ public class MagneticObject : MonoBehaviour
         }
     }
 
+    private void ChangeState(MagneticState newState)
+    {
+        if (newState == _state) return;
+        _state = newState;
+        Debug.Log("state = " + _state);
+    }
+
     public void AttractToMagnet()
     {
         // attractedToPlayer = true;
         if (repelSequence.IsPlaying()) repelSequence.Kill();
         
-        _state = MagneticState.Attracted;
+        ChangeState(MagneticState.Attracted);
 
         StartCoroutine(AttractCoroutine());
         
@@ -121,7 +128,7 @@ public class MagneticObject : MonoBehaviour
     }
 
     private void HitPlayer() {
-        _state = MagneticState.OnPlayer;
+        ChangeState(MagneticState.OnPlayer);
         // isTouchingPlayer = true;
         // attractedToPlayer = false;
 
@@ -144,26 +151,31 @@ public class MagneticObject : MonoBehaviour
         }
 
         transform.position = positionOnCollision;
-        _state = MagneticState.None;
+        ChangeState(MagneticState.OnPlayer);
     }
     
     private IEnumerator RepelCoroutine()
     {
         var point = PlayerController.Instance.transform.position + PlayerController.Instance.transform.right * repelDistance;
-        Vector3 vec = new Vector3(point.x, point.y, transform.position.z);
+        Vector3 targetPosition = new Vector3(point.x, point.y, transform.position.z);
+        startingPosition = targetPosition;
         
         isTouchingCone = false;
-        _state = MagneticState.Repelled;
+        ChangeState(MagneticState.Repelled);
 
         transform.SetParent(parent.transform);
         
         sfx_whoosh.Play();
         
-        repelSequence.Append(transform.DOMove(vec, repelTime));
-        startingPosition = vec;
+        float timeGoneBy = 0.0f;
 
-        yield return repelSequence.WaitForCompletion();
-
-        _state = MagneticState.None;
+        while (timeGoneBy < repelTime && _state == MagneticState.Repelled)
+        {
+            transform.position = Vector3.Lerp(transform.position, targetPosition, timeGoneBy / repelTime);
+            timeGoneBy += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        
+        ChangeState(MagneticState.None);
     }
 }

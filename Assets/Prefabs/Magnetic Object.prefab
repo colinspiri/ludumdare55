@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2727308161522791453}
   - component: {fileID: 2945811929120903149}
   - component: {fileID: 7289301658274233240}
-  - component: {fileID: 5142860722217570549}
+  - component: {fileID: 2549152972031711832}
   - component: {fileID: 1077549186395461179}
   m_Layer: 0
   m_Name: Magnetic Object
@@ -114,8 +114,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.01, y: 2.4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9138403718262644763}
   - {fileID: 2177632169847643441}
@@ -192,15 +192,15 @@ MonoBehaviour:
   negativeColor: {r: 0.22352941, g: 0.6431373, b: 1, a: 1}
   attractionTime: 1
   isTouchingCone: 0
-  vibrateAmount: 0.18
-  repelDistance: 8
-  repelTime: 0.5
+  vibrateAmount: 0.2
+  repelDistance: 5
+  repelTime: 1
   vibrateRange: 4
   cameraShakeMagnitudeOnCollision: 0.6
   sfx_vibrate: {fileID: 7234731908760595329}
   sfx_whoosh: {fileID: 8861629937666647077}
---- !u!60 &5142860722217570549
-PolygonCollider2D:
+--- !u!58 &2549152972031711832
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -232,21 +232,8 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0, y: 0.5773587}
-      - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
-  m_UseDelaunayMesh: 0
+  serializedVersion: 2
+  m_Radius: 0.6
 --- !u!50 &1077549186395461179
 Rigidbody2D:
   serializedVersion: 4
