@@ -5,29 +5,37 @@ using UnityEngine;
 public class MagneticObjectSpawner : MonoBehaviour
 {
     [SerializeField] private MagneticObject magneticObject;
-    [HideInInspector] public bool hasSpawned;
-    [SerializeField] private GameObject objectParent;
-    private int rand;
+    [SerializeField] private float spawnDelay;
+
+    private MagneticObject _spawnedObject;
 
     // Start is called before the first frame update
     void Start()
     {
-        hasSpawned = false;
+        SpawnNewObject();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!hasSpawned)
-        {
-            rand = Random.Range(0, 2);
-            var newObject = Instantiate(magneticObject);
-            if (rand == 0) magneticObject.polarity = Polarity.Positive;
-            if (rand == 1) magneticObject.polarity = Polarity.Negative;
-            newObject.transform.position = transform.position;
-            newObject.transform.SetParent(objectParent.transform);
-            newObject.spawner = this;
-            hasSpawned = true;
-        }
+    private void SpawnNewObject() {
+        var rand = Random.Range(0, 2);
+        var newObject = Instantiate(magneticObject);
+        if (rand == 0) magneticObject.polarity = Polarity.Positive;
+        if (rand == 1) magneticObject.polarity = Polarity.Negative;
+        
+        newObject.transform.position = transform.position;
+        _spawnedObject = newObject.GetComponent<MagneticObject>();
+
+        _spawnedObject.onDeath += SpawnOnDeath;
+    }
+
+    private void SpawnOnDeath() {
+        StartCoroutine(SpawnObjectAfterDelay());
+
+        _spawnedObject.onDeath -= SpawnOnDeath;
+    }
+
+    private IEnumerator SpawnObjectAfterDelay() {
+        yield return new WaitForSeconds( 0.1f + spawnDelay);
+        
+        SpawnNewObject();
     }
 }

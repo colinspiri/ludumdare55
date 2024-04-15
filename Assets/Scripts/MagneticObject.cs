@@ -1,13 +1,8 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using DG.Tweening;
-using Unity.VisualScripting;
-using UnityEditor.U2D;
-using UnityEngine.UIElements;
-using Sequence = DG.Tweening.Sequence;
+using UnityEngine.Events;
 
 public class MagneticObject : MonoBehaviour
 {
@@ -16,7 +11,6 @@ public class MagneticObject : MonoBehaviour
     public ParticleSystem clashParticles;
     private TrailRenderer _trailRenderer;
 
-    [HideInInspector] public MagneticObjectSpawner spawner;
     [Header("Polarity")]
     [SerializeField] private SpriteRenderer polarityIcon;
     [SerializeField] private Color positiveColor;
@@ -52,8 +46,10 @@ public class MagneticObject : MonoBehaviour
     private enum MagneticState { None, Attracted, Repelled, OnPlayer, OnWall }
     private MagneticState _state;
     public bool Moving => _state is MagneticState.Attracted or MagneticState.Repelled;
-    
-    
+
+    public delegate void OnDeath();
+    public OnDeath onDeath;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -187,13 +183,13 @@ public class MagneticObject : MonoBehaviour
 
         if (other.gameObject.CompareTag("Magnetic Object"))
         {
-            var magneticObject = other.gameObject.GetComponent<MagneticObject>();
-            spawner.hasSpawned = false;
-            magneticObject.spawner.hasSpawned = false;
-            AudioManager.Instance.PlayMetalHitPlayer();
+            Debug.Log("collision between " + gameObject.name + " and " + other.gameObject.name);
+            AudioManager.Instance.PlayMetalHitMetal();
             Instantiate(clashParticles, transform.position, Quaternion.identity);
-            Destroy(other.gameObject);
-            Destroy(gameObject);
+
+            var otherMagneticObject = other.gameObject.GetComponent<MagneticObject>();
+            otherMagneticObject.Die();
+            Die();
         }
     }
 
@@ -263,5 +259,10 @@ public class MagneticObject : MonoBehaviour
         Physics2D.IgnoreLayerCollision(6, 7, true);
 
         ChangeState(MagneticState.None);
+    }
+
+    private void Die() {
+        onDeath?.Invoke();
+        Destroy(gameObject);
     }
 }

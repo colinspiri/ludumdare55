@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour {
     [SerializeField] private AudioSource splat;
     [SerializeField] private AudioSource metal_hit_player;
     [SerializeField] private AudioSource metal_hit_wall;
+    [SerializeField] private AudioSource metal_hit_metal;
 
     private void Awake() {
         if (Instance != null) {
@@ -48,7 +49,6 @@ public class AudioManager : MonoBehaviour {
     }
 
     public void SwitchPolarity(Polarity polarity) {
-        return;
         if (polarity == Polarity.Positive) {
             polarity_positive.Play();
         }
@@ -66,5 +66,8 @@ public class AudioManager : MonoBehaviour {
     }
     public void PlayMetalHitWall() {
         metal_hit_wall.Play();
+    }
+    public void PlayMetalHitMetal() {
+        if(!metal_hit_metal.isPlaying) metal_hit_metal.Play();
     }
 }

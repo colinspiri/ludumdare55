@@ -45,5 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magneticObject: {fileID: 7289301658274233240, guid: b9703350c8d62db44825affda1260e73, type: 3}
-  hasSpawned: 0
-  objectParent: {fileID: 0}
+  spawnDelay: 2
