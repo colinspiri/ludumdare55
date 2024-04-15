@@ -38,6 +38,9 @@ public class MagneticObject : MonoBehaviour
     [SerializeField] private AudioSource sfx_whoosh;
 
     Sequence repelSequence;
+
+    Coroutine attractCoroutine;
+    Coroutine repelCoroutine;
     
     private enum MagneticState { OnPlayer, Attracted, Repelled, None }
     private MagneticState _state;
@@ -114,7 +117,7 @@ public class MagneticObject : MonoBehaviour
 
         Physics2D.IgnoreLayerCollision(6, 7, false);
 
-        StartCoroutine(AttractCoroutine());
+        attractCoroutine = StartCoroutine(AttractCoroutine());
         
         sfx_whoosh.Play();
     }
@@ -122,7 +125,7 @@ public class MagneticObject : MonoBehaviour
     private void RepelObject()
     {
         Physics2D.IgnoreLayerCollision(6, 7, false);
-        StartCoroutine(RepelCoroutine());
+        repelCoroutine = StartCoroutine(RepelCoroutine());
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -132,6 +135,20 @@ public class MagneticObject : MonoBehaviour
             transform.SetParent(other.transform);
             HitPlayer();
         }
+
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            if (Moving)
+            {
+                // stop coroutine
+                if (attractCoroutine != null) StopCoroutine(attractCoroutine);
+
+                if (repelCoroutine != null) StopCoroutine(repelCoroutine);
+                HitWall();
+            }
+
+            // have object bounce off a bit
+        }
     }
 
     private void HitPlayer() {
@@ -140,9 +157,16 @@ public class MagneticObject : MonoBehaviour
         // attractedToPlayer = false;
 
         rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        //rb.isKinematic = true;
         positionOnCollision = transform.position;
         
         CameraShake.Instance.Shake(cameraShakeMagnitudeOnCollision);
+        AudioManager.Instance.PlayHitMagnet();
+    }
+
+    private void HitWall()
+    {
+        ChangeState(MagneticState.None);
         AudioManager.Instance.PlayHitMagnet();
     }
 
@@ -185,5 +209,7 @@ public class MagneticObject : MonoBehaviour
         
         ChangeState(MagneticState.None);
         Physics2D.IgnoreLayerCollision(6, 7, true);
+
+        //rb.isKinematic = false;
     }
 }
