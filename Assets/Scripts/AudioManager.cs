@@ -33,8 +33,6 @@ public class AudioManager : MonoBehaviour {
         SetVolume("SFXVolume", PlayerPrefs.GetFloat("SFXVolume", 1f));
 
         SceneManager.activeSceneChanged += (oldscene, newscene) => {
-            music.Stop();
-            music.Play();
         };
     }
 
