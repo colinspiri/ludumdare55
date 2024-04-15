@@ -44,12 +44,11 @@ public class MagneticObject : MonoBehaviour
     private Vector3 _vibrateOrigin;
     private Collider2D _coneCol;
     private float _colliderDistance;
-    private GameObject _initialParent;
     private Vector3 _attractFinalPosition;
     private Coroutine _attractCoroutine;
     private Coroutine _repelCoroutine;
     private Vector3 _onPlayerOffset;
-    
+
     private enum MagneticState { None, Attracted, Repelled, OnPlayer, OnWall }
     private MagneticState _state;
     public bool Moving => _state is MagneticState.Attracted or MagneticState.Repelled;
@@ -63,7 +62,6 @@ public class MagneticObject : MonoBehaviour
         _vibrateOrigin = transform.position;
         _collider = GetComponent<Collider2D>();
         _coneCol = MagnetCone.Instance.GetComponent<Collider2D>();
-        _initialParent = transform.parent.gameObject;
         _trailRenderer = GetComponent<TrailRenderer>();
 
         Physics2D.IgnoreLayerCollision(6, 7, true);
@@ -85,7 +83,7 @@ public class MagneticObject : MonoBehaviour
         CheckVibration();
 
         if (_state == MagneticState.OnPlayer) {
-            transform.position = PlayerController.Instance.transform.position + _onPlayerOffset;
+            transform.position = PlayerController.Instance.transform.TransformPoint(_onPlayerOffset);
         }
         if (_state == MagneticState.OnPlayer && MagnetCone.Instance.GetConePolarity() != polarity) {
             Repel();
@@ -123,12 +121,12 @@ public class MagneticObject : MonoBehaviour
             _vibrateOrigin = transform.position;
         }
         else if (_state == MagneticState.OnPlayer) {
-            transform.SetParent(PlayerController.Instance.transform);
-            _onPlayerOffset = transform.position - PlayerController.Instance.transform.position;
+            // transform.SetParent(PlayerController.Instance.transform);
+            _onPlayerOffset = PlayerController.Instance.transform.InverseTransformPoint(transform.position);
         }
 
         if (oldState == MagneticState.OnPlayer) {
-            transform.SetParent(_initialParent.transform);
+            // transform.SetParent(_initialParent.transform);
         }
 
         // Debug.Log(gameObject.name + " state = " + _state);
