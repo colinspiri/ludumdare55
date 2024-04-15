@@ -4,14 +4,10 @@ using UnityEngine;
 public class MagnetCone : MonoBehaviour {
     public static MagnetCone Instance;
     
-    //[SerializeField] private SpriteRenderer coneSprite;
+    [SerializeField] private SpriteRenderer coneSprite;
     [SerializeField] private Color positiveColor;
     [SerializeField] private Color negativeColor;
-    [SerializeField] private Sprite positiveMagnet;
-    [SerializeField] private Sprite negativeMagnet;
-    [SerializeField] private SpriteRenderer magnetSpriteRenderer;
-    [SerializeField] private GameObject magnet;
-
+    
     private Polarity _currentPolarity;
 
     private void Awake() {
@@ -20,7 +16,6 @@ public class MagnetCone : MonoBehaviour {
 
     private void Start() {
         UpdateSprite();
-        //magnetSpriteRenderer = magnet.GetComponent<SpriteRenderer>();
     }
 
     private void Update() {
@@ -39,16 +34,9 @@ public class MagnetCone : MonoBehaviour {
     }
 
     private void UpdateSprite() {
-/*        coneSprite.color = _currentPolarity switch {
+        coneSprite.color = _currentPolarity switch {
             Polarity.Positive => positiveColor,
             Polarity.Negative => negativeColor,
-            _ => throw new ArgumentOutOfRangeException()
-        };*/
-
-        magnetSpriteRenderer.sprite = _currentPolarity switch
-        {
-            Polarity.Positive => positiveMagnet,
-            Polarity.Negative => negativeMagnet,
             _ => throw new ArgumentOutOfRangeException()
         };
     }
