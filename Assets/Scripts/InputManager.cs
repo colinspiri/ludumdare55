@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -21,6 +22,16 @@ public class InputManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    private void OnEnable() {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+    }
+
+    private void OnDisable() {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     void ResetValuesToDefault()
