@@ -105,7 +105,6 @@ public class MagneticObject : MonoBehaviour
     {
         if (newState == _state) return;
         _state = newState;
-        Debug.Log("state = " + _state);
     }
 
     public void AttractToMagnet()
@@ -202,8 +201,10 @@ public class MagneticObject : MonoBehaviour
 
         while (timeGoneBy < repelTime && _state == MagneticState.Repelled)
         {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, timeGoneBy / repelTime);
-            timeGoneBy += Time.deltaTime;
+            if (Time.timeScale != 0) {
+                timeGoneBy += Time.deltaTime;
+                transform.position = Vector3.Lerp(transform.position, targetPosition, timeGoneBy / repelTime);
+            }
             yield return null;
         }
         

@@ -7,6 +7,7 @@ public class Hitstop : MonoBehaviour
     public static Hitstop Instance;
 
     [SerializeField] private float defaultHitstopTime = 1f;
+    [SerializeField] private float hitstopShakeStrength = 0.4f;
 
     private void Awake()
     {
@@ -15,6 +16,7 @@ public class Hitstop : MonoBehaviour
 
     public void DoHitstop(float hitstopTime = 0f)
     {
+        CameraShake.Instance.Shake(hitstopShakeStrength);
         StartCoroutine(HitstopCoroutine(hitstopTime));
     }
 
