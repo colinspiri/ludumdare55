@@ -186,6 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d747088c6b6e147b72c587148e6ca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clashParticles: {fileID: 2061909078969867791, guid: caccfcfbbe857284390a8eb8077242e4, type: 3}
+  spawner: {fileID: 0}
   polarityIcon: {fileID: 3046034576737345640}
   positiveColor: {r: 1, g: 0.2971698, b: 0.2971698, a: 1}
   negativeColor: {r: 0.22352941, g: 0.6431373, b: 1, a: 1}

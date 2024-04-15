@@ -13,6 +13,8 @@ public class MagneticObject : MonoBehaviour
 {
     // components
     private Collider2D _collider;
+    public ParticleSystem clashParticles;
+
     [HideInInspector] public MagneticObjectSpawner spawner;
     [Header("Polarity")]
     [SerializeField] private SpriteRenderer polarityIcon;
@@ -180,6 +182,8 @@ public class MagneticObject : MonoBehaviour
             var magneticObject = other.gameObject.GetComponent<MagneticObject>();
             spawner.hasSpawned = false;
             magneticObject.spawner.hasSpawned = false;
+            AudioManager.Instance.PlayMetalHitPlayer();
+            Instantiate(clashParticles, transform.position, Quaternion.identity);
             Destroy(other.gameObject);
             Destroy(gameObject);
         }
