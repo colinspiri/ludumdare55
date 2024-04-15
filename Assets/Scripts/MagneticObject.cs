@@ -12,6 +12,7 @@ using Sequence = DG.Tweening.Sequence;
 public class MagneticObject : MonoBehaviour
 {
     // components
+    private Collider2D _collider;
     [Header("Polarity")]
     [SerializeField] private SpriteRenderer polarityIcon;
     [SerializeField] private Color positiveColor;
@@ -33,7 +34,6 @@ public class MagneticObject : MonoBehaviour
     // state
     private Rigidbody2D _rb;
     private Vector3 _vibrateOrigin;
-    private Collider2D _objectCol;
     private Collider2D _coneCol;
     private float _colliderDistance;
     private GameObject _initialParent;
@@ -53,7 +53,7 @@ public class MagneticObject : MonoBehaviour
         _state = MagneticState.None;
         _rb = GetComponent<Rigidbody2D>();
         _vibrateOrigin = transform.position;
-        _objectCol = GetComponent<Collider2D>();
+        _collider = GetComponent<Collider2D>();
         _coneCol = MagnetCone.Instance.GetComponent<Collider2D>();
         _initialParent = transform.parent.gameObject;
 
@@ -74,10 +74,17 @@ public class MagneticObject : MonoBehaviour
     void Update()
     {
         CheckVibration();
+
+        if (_state == MagneticState.OnPlayer) {
+            transform.position = PlayerController.Instance.transform.position + _onPlayerOffset;
+        }
+        if (_state == MagneticState.OnPlayer && MagnetCone.Instance.GetConePolarity() != polarity) {
+            Repel();
+        }
     }
 
     private void CheckVibration() {
-        _colliderDistance = Physics2D.Distance(_objectCol, _coneCol).distance;
+        _colliderDistance = Physics2D.Distance(_collider, _coneCol).distance;
 
         if (_state == MagneticState.None && _colliderDistance < vibrateRange && MagnetCone.Instance.GetConePolarity() == polarity)
         {
@@ -101,6 +108,7 @@ public class MagneticObject : MonoBehaviour
         }
         else if (_state == MagneticState.OnPlayer) {
             transform.SetParent(PlayerController.Instance.transform);
+            _onPlayerOffset = transform.position - PlayerController.Instance.transform.position;
         }
 
         if (oldState == MagneticState.OnPlayer) {
