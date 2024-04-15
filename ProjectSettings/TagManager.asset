@@ -8,6 +8,7 @@ TagManager:
   - Cone
   - Cone Vibrate Collider
   - Enemy
+  - Wall
   layers:
   - Default
   - TransparentFX
