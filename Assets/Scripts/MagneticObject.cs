@@ -32,15 +32,15 @@ public class MagneticObject : MonoBehaviour
 
     // state
     private Rigidbody2D _rb;
-    private Vector3 _startingPosition;
-    private Transform _vibrateTarget;
+    private Vector3 _vibrateOrigin;
     private Collider2D _objectCol;
     private Collider2D _coneCol;
     private float _colliderDistance;
-    private GameObject _parent;
+    private GameObject _initialParent;
     private Vector3 _attractFinalPosition;
     private Coroutine _attractCoroutine;
     private Coroutine _repelCoroutine;
+    private Vector3 _onPlayerOffset;
     
     private enum MagneticState { None, Attracted, Repelled, OnPlayer, OnWall }
     private MagneticState _state;
@@ -52,11 +52,10 @@ public class MagneticObject : MonoBehaviour
     {
         _state = MagneticState.None;
         _rb = GetComponent<Rigidbody2D>();
-        _vibrateTarget = GetComponent<Transform>();
-        _startingPosition = _vibrateTarget.position;
+        _vibrateOrigin = transform.position;
         _objectCol = GetComponent<Collider2D>();
         _coneCol = MagnetCone.Instance.GetComponent<Collider2D>();
-        _parent = transform.parent.gameObject;
+        _initialParent = transform.parent.gameObject;
 
         Physics2D.IgnoreLayerCollision(6, 7, true);
 
@@ -80,11 +79,11 @@ public class MagneticObject : MonoBehaviour
     private void CheckVibration() {
         _colliderDistance = Physics2D.Distance(_objectCol, _coneCol).distance;
 
-        if (_colliderDistance < vibrateRange &&  _state == MagneticState.None && MagnetCone.Instance.GetConePolarity() == polarity)
+        if (_state == MagneticState.None && _colliderDistance < vibrateRange && MagnetCone.Instance.GetConePolarity() == polarity)
         {
-            var point = new Vector3(Random.Range(_startingPosition.x - vibrateAmount, _startingPosition.x + vibrateAmount),
-                Random.Range(_startingPosition.y - vibrateAmount, _startingPosition.y + vibrateAmount), _startingPosition.z);
-            _vibrateTarget.position = point;
+            var point = new Vector3(Random.Range(_vibrateOrigin.x - vibrateAmount, _vibrateOrigin.x + vibrateAmount),
+                Random.Range(_vibrateOrigin.y - vibrateAmount, _vibrateOrigin.y + vibrateAmount), _vibrateOrigin.z);
+            transform.position = point;
             
             if(!sfx_vibrate.isPlaying) sfx_vibrate.Play();
         }
@@ -94,12 +93,25 @@ public class MagneticObject : MonoBehaviour
     private void ChangeState(MagneticState newState)
     {
         if (newState == _state) return;
+        var oldState = _state;
         _state = newState;
+
+        if (_state == MagneticState.None) {
+            _vibrateOrigin = transform.position;
+        }
+        else if (_state == MagneticState.OnPlayer) {
+            transform.SetParent(PlayerController.Instance.transform);
+        }
+
+        if (oldState == MagneticState.OnPlayer) {
+            transform.SetParent(_initialParent.transform);
+        }
+
+        Debug.Log(gameObject.name + " state = " + _state);
     }
 
     public void InsideMagnetCone(Polarity conePolarity) {
-
-        if (_state == MagneticState.None || _state == MagneticState.OnWall) {
+        if (_state == MagneticState.None) {
             if(polarity == conePolarity) Attract();
             else Repel();
         }
@@ -112,47 +124,43 @@ public class MagneticObject : MonoBehaviour
         else if (_state == MagneticState.OnPlayer) {
             if(polarity != conePolarity) Repel();
         }
+        else if (_state == MagneticState.OnWall) {
+            if(polarity == conePolarity) Attract();
+        }
     }
 
     private void Attract()
     {
-        if (_repelCoroutine != null) {
-            StopCoroutine(_repelCoroutine);
-        }
+        StopMoving();
         _attractCoroutine = StartCoroutine(AttractCoroutine());
     }
 
     private void Repel()
     {
-        if (_attractCoroutine != null) {
-            StopCoroutine(_attractCoroutine);
-        }
+        StopMoving();
         _repelCoroutine = StartCoroutine(RepelCoroutine());
+    }
+
+    private void StopMoving() {
+        if (_attractCoroutine != null) StopCoroutine(_attractCoroutine);
+        if (_repelCoroutine != null) StopCoroutine(_repelCoroutine);
+        Physics2D.IgnoreLayerCollision(6, 7, true);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player") && _state == MagneticState.Attracted)
         {
-            transform.SetParent(other.transform);
+            StopMoving();
             HitPlayer();
         }
         
-        if (other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Wall") && Moving)
         {
-            if (Moving)
-            {
-                if (_attractCoroutine != null) StopCoroutine(_attractCoroutine);
-                if (_repelCoroutine != null) StopCoroutine(_repelCoroutine);
-                HitWall();
-            }
-
+            StopMoving();
+            HitWall();
             // have object bounce off a bit
         }
-    }
-
-    private void OnCollisionStay2D(Collision2D collision) {
-        
     }
 
     private void HitPlayer() {
@@ -179,20 +187,20 @@ public class MagneticObject : MonoBehaviour
 
         Physics2D.IgnoreLayerCollision(6, 7, false);
 
+        var targetPosition = PlayerController.Instance.transform.position;
+        var startingPosition = transform.position;
         var timeGoneBy = 0.0f;
         while (timeGoneBy < attractionTime && _state == MagneticState.Attracted)
         {
-            transform.position = Vector3.Lerp(transform.position, PlayerController.Instance.transform.position, timeGoneBy / attractionTime);
+            transform.position = Vector3.Lerp(startingPosition, targetPosition, timeGoneBy / attractionTime);
             timeGoneBy += Time.deltaTime;
             yield return null;
         }
         
         // collides with player and state becomes OnPlayer
-        if (_state == MagneticState.OnPlayer) {
-            transform.position = _attractFinalPosition;
-        }
-
-        ChangeState(MagneticState.OnPlayer);
+        transform.position = _attractFinalPosition;
+        
+        Physics2D.IgnoreLayerCollision(6, 7, true);
     }
     
     private IEnumerator RepelCoroutine()
@@ -203,21 +211,19 @@ public class MagneticObject : MonoBehaviour
 
         Physics2D.IgnoreLayerCollision(6, 7, false);
 
-        var point = PlayerController.Instance.transform.position + PlayerController.Instance.transform.right * repelDistance;
-        Vector3 targetPosition = new Vector3(point.x, point.y, transform.position.z);
-        _startingPosition = targetPosition;
-        transform.SetParent(_parent.transform);
-
+        var targetPosition = PlayerController.Instance.transform.position + PlayerController.Instance.transform.right * repelDistance;
+        var startingPosition = transform.position;
         var timeGoneBy = 0.0f;
         while (timeGoneBy < repelTime && _state == MagneticState.Repelled)
         {
             if (Time.timeScale != 0) {
                 timeGoneBy += Time.deltaTime;
-                transform.position = Vector3.Lerp(transform.position, targetPosition, timeGoneBy / repelTime);
+                transform.position = Vector3.Lerp(startingPosition, targetPosition, timeGoneBy / repelTime);
             }
             yield return null;
         }
-        
+        transform.position = targetPosition;
+
         Physics2D.IgnoreLayerCollision(6, 7, true);
 
         ChangeState(MagneticState.None);

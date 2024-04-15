@@ -186,19 +186,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d747088c6b6e147b72c587148e6ca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  polarity: 0
   polarityIcon: {fileID: 3046034576737345640}
   positiveColor: {r: 1, g: 0.2971698, b: 0.2971698, a: 1}
   negativeColor: {r: 0.22352941, g: 0.6431373, b: 1, a: 1}
-  attractionTime: 1.3
-  isTouchingCone: 0
-  vibrateAmount: 0.3
-  repelDistance: 16
-  repelTime: 1.3
-  vibrateRange: 4
-  cameraShakeMagnitudeOnCollision: 0.6
   sfx_vibrate: {fileID: 7234731908760595329}
   sfx_whoosh: {fileID: 8861629937666647077}
+  polarity: 0
+  vibrateAmount: 0.3
+  vibrateRange: 4
+  attractionTime: 0.2
+  repelDistance: 16
+  repelTime: 0.2
+  cameraShakeMagnitudeOnCollision: 0.6
 --- !u!58 &2549152972031711832
 CircleCollider2D:
   m_ObjectHideFlags: 0
