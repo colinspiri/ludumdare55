@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEditor.U2D;
 using UnityEngine.UIElements;
+using Sequence = DG.Tweening.Sequence;
 
 public class MagneticObject : MonoBehaviour
 {
@@ -147,7 +149,7 @@ public class MagneticObject : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, PlayerController.Instance.transform.position, timeGoneBy / attractionTime);
             timeGoneBy += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
 
         transform.position = positionOnCollision;
@@ -173,7 +175,7 @@ public class MagneticObject : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, targetPosition, timeGoneBy / repelTime);
             timeGoneBy += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
         
         ChangeState(MagneticState.None);

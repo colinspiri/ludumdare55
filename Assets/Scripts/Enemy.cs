@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
             {
                 if (magneticObject.Moving) {
                     Die();
+                    Hitstop.Instance.DoHitstop();
                 }
             }
         }
