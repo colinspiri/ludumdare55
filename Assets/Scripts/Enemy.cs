@@ -1,13 +1,19 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Pathfinding;
+using ScriptableObjectArchitecture;
 
-public class Enemy : MonoBehaviour
-{
+public class Enemy : MonoBehaviour {
+    [SerializeField] private GameObjectCollection allEnemies;
     public float speed;
     public ParticleSystem deathParticles;
     private AIPath path;
     public float pathFindingDistance;
+
+    private void Awake() {
+        allEnemies.Add(gameObject);
+    }
 
     private void Start()
     {
@@ -56,5 +62,9 @@ public class Enemy : MonoBehaviour
         Instantiate(deathParticles, transform.position, Quaternion.identity);
         AudioManager.Instance.PlaySplat();
         Destroy(gameObject);
+    }
+
+    private void OnDestroy() {
+        allEnemies.Remove(gameObject);
     }
 }
