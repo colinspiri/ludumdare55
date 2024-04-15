@@ -183,7 +183,6 @@ public class MagneticObject : MonoBehaviour
 
         if (other.gameObject.CompareTag("Magnetic Object"))
         {
-            Debug.Log("collision between " + gameObject.name + " and " + other.gameObject.name);
             AudioManager.Instance.PlayMetalHitMetal();
             Instantiate(clashParticles, transform.position, Quaternion.identity);
 
