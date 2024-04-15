@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class MagneticObjectSpawner : MonoBehaviour
 {
     [SerializeField] private MagneticObject magneticObject;
     [SerializeField] private float spawnDelay;
+    [SerializeField] private SpriteRenderer spawnerIcon;
+    [SerializeField] private AnimationCurve fadeInCurve;
+    [SerializeField] private float iconFullOpacity;
 
     private MagneticObject _spawnedObject;
 
@@ -16,6 +20,8 @@ public class MagneticObjectSpawner : MonoBehaviour
     }
 
     private void SpawnNewObject() {
+        spawnerIcon.DOFade(0, 0.1f);
+        
         var rand = Random.Range(0, 2);
         var newObject = Instantiate(magneticObject);
         if (rand == 0) magneticObject.polarity = Polarity.Positive;
@@ -34,6 +40,7 @@ public class MagneticObjectSpawner : MonoBehaviour
     }
 
     private IEnumerator SpawnObjectAfterDelay() {
+        spawnerIcon.DOFade(iconFullOpacity, spawnDelay).SetEase(fadeInCurve);
         yield return new WaitForSeconds( 0.1f + spawnDelay);
         
         SpawnNewObject();
