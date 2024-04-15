@@ -193,7 +193,7 @@ MonoBehaviour:
   attractionTime: 1
   isTouchingCone: 0
   vibrateAmount: 0.2
-  repelDistance: 5
+  repelDistance: 7
   repelTime: 1
   vibrateRange: 4
   cameraShakeMagnitudeOnCollision: 0.6
