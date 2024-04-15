@@ -1,7 +1,5 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Audio;
 
 [CreateAssetMenu(fileName = "AudioSettings", menuName = "AudioSettings")]
 public class AudioSettings : ScriptableObject

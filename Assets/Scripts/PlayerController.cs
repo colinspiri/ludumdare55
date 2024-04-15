@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-using ScriptableObjectArchitecture;
-
+﻿using UnityEngine;
 
 // This class controls player movement
 // Script is based from Coursera Game Design and Development 1: 2D Shooter project from MSU
