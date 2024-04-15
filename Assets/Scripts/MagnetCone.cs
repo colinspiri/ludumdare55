@@ -7,7 +7,11 @@ public class MagnetCone : MonoBehaviour {
     [SerializeField] private SpriteRenderer coneSprite;
     [SerializeField] private Color positiveColor;
     [SerializeField] private Color negativeColor;
-    
+
+    [SerializeField] private SpriteRenderer magnetSpriteRenderer;
+    [SerializeField] private Sprite positiveSprite;
+    [SerializeField] private Sprite negativeSprite;
+
     private Polarity _currentPolarity;
 
     private void Awake() {
@@ -37,6 +41,13 @@ public class MagnetCone : MonoBehaviour {
         coneSprite.color = _currentPolarity switch {
             Polarity.Positive => positiveColor,
             Polarity.Negative => negativeColor,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        magnetSpriteRenderer.sprite = _currentPolarity switch
+        {
+            Polarity.Positive => positiveSprite,
+            Polarity.Negative => negativeSprite,
             _ => throw new ArgumentOutOfRangeException()
         };
     }
