@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public float speed;
     public ParticleSystem deathParticles;
     private AIPath path;
+    public float pathFindingDistance;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         var player = PlayerController.Instance;
-        if (player != null)
+        if (player != null && Vector2.Distance(gameObject.transform.position, player.gameObject.transform.position) < pathFindingDistance)
         {
 /*            Vector2 direction = player.transform.position - transform.position;
             direction.Normalize();
