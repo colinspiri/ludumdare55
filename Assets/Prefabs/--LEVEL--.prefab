@@ -160,7 +160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2203160432141921788}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -412,6 +412,9 @@ Transform:
   m_Children:
   - {fileID: 1336682931437842024}
   - {fileID: 167262593000520952}
+  - {fileID: 6275698895016486590}
+  - {fileID: 7069109515447295635}
+  - {fileID: 8029970925572060412}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5220245077437249809
@@ -596,7 +599,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2727308161522791453, guid: b9703350c8d62db44825affda1260e73, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.03
+      value: 14.029999
       objectReference: {fileID: 0}
     - target: {fileID: 2727308161522791453, guid: b9703350c8d62db44825affda1260e73, type: 3}
       propertyPath: m_LocalPosition.y
@@ -637,6 +640,14 @@ PrefabInstance:
     - target: {fileID: 4342742681394560387, guid: b9703350c8d62db44825affda1260e73, type: 3}
       propertyPath: m_Name
       value: Magnetic Object Positive
+      objectReference: {fileID: 0}
+    - target: {fileID: 4342742681394560387, guid: b9703350c8d62db44825affda1260e73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7289301658274233240, guid: b9703350c8d62db44825affda1260e73, type: 3}
+      propertyPath: polarity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -766,6 +777,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magnetic Object Negative (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4342742681394560387, guid: b9703350c8d62db44825affda1260e73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7289301658274233240, guid: b9703350c8d62db44825affda1260e73, type: 3}
+      propertyPath: polarity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -827,6 +846,14 @@ PrefabInstance:
     - target: {fileID: 4342742681394560387, guid: b9703350c8d62db44825affda1260e73, type: 3}
       propertyPath: m_Name
       value: Magnetic Object Negative
+      objectReference: {fileID: 0}
+    - target: {fileID: 4342742681394560387, guid: b9703350c8d62db44825affda1260e73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7289301658274233240, guid: b9703350c8d62db44825affda1260e73, type: 3}
+      propertyPath: polarity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1394,6 +1421,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3676720076819097007, guid: 1b0e65b1dd441474e8cc4657b0ad81f9, type: 3}
   m_PrefabInstance: {fileID: 5691880511033657520}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5970215903243956785
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4037815111776446364}
+    m_Modifications:
+    - target: {fileID: 313269860747473129, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: objectParent
+      value: 
+      objectReference: {fileID: 5498242829675453726}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.09513183
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097005266963581324, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_Name
+      value: Magnetic Object Spawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+--- !u!4 &7069109515447295635 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+  m_PrefabInstance: {fileID: 5970215903243956785}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6757930539526335847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1463,6 +1556,138 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3676720076819097007, guid: 1b0e65b1dd441474e8cc4657b0ad81f9, type: 3}
   m_PrefabInstance: {fileID: 6757930539526335847}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6895224463957186654
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4037815111776446364}
+    m_Modifications:
+    - target: {fileID: 313269860747473129, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: objectParent
+      value: 
+      objectReference: {fileID: 2203160432141921788}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 60.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.09513183
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097005266963581324, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_Name
+      value: Magnetic Object Spawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+--- !u!4 &8029970925572060412 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+  m_PrefabInstance: {fileID: 6895224463957186654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7482503147901635100
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4037815111776446364}
+    m_Modifications:
+    - target: {fileID: 313269860747473129, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: objectParent
+      value: 
+      objectReference: {fileID: 2203160432141921788}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 49.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 14.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.09513183
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097005266963581324, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+      propertyPath: m_Name
+      value: Magnetic Object Spawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+--- !u!4 &6275698895016486590 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3513073915913022626, guid: b381cefadaa85124b9b0710b14646b56, type: 3}
+  m_PrefabInstance: {fileID: 7482503147901635100}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7667748673293981941
 PrefabInstance:

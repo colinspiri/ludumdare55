@@ -13,6 +13,7 @@ public class MagneticObject : MonoBehaviour
 {
     // components
     private Collider2D _collider;
+    [HideInInspector] public MagneticObjectSpawner spawner;
     [Header("Polarity")]
     [SerializeField] private SpriteRenderer polarityIcon;
     [SerializeField] private Color positiveColor;
@@ -176,6 +177,9 @@ public class MagneticObject : MonoBehaviour
 
         if (other.gameObject.CompareTag("Magnetic Object"))
         {
+            var magneticObject = other.gameObject.GetComponent<MagneticObject>();
+            spawner.hasSpawned = false;
+            magneticObject.spawner.hasSpawned = false;
             Destroy(other.gameObject);
             Destroy(gameObject);
         }
