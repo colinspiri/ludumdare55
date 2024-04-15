@@ -14,6 +14,7 @@ public class MagneticObject : MonoBehaviour
     // components
     private Collider2D _collider;
     public ParticleSystem clashParticles;
+    private TrailRenderer _trailRenderer;
 
     [HideInInspector] public MagneticObjectSpawner spawner;
     [Header("Polarity")]
@@ -63,6 +64,7 @@ public class MagneticObject : MonoBehaviour
         _collider = GetComponent<Collider2D>();
         _coneCol = MagnetCone.Instance.GetComponent<Collider2D>();
         _initialParent = transform.parent.gameObject;
+        _trailRenderer = GetComponent<TrailRenderer>();
 
         Physics2D.IgnoreLayerCollision(6, 7, true);
 
@@ -90,20 +92,27 @@ public class MagneticObject : MonoBehaviour
         }
     }
 
-    private void CheckVibration() {
+    private void CheckVibration()
+    {
         _colliderDistance = Physics2D.Distance(_collider, _coneCol).distance;
 
         if (_state == MagneticState.None && _colliderDistance < vibrateRange && MagnetCone.Instance.GetConePolarity() == polarity)
         {
+            _trailRenderer.enabled = false;
+
             var point = new Vector3(Random.Range(_vibrateOrigin.x - vibrateAmount, _vibrateOrigin.x + vibrateAmount),
                 Random.Range(_vibrateOrigin.y - vibrateAmount, _vibrateOrigin.y + vibrateAmount), _vibrateOrigin.z);
             transform.position = point;
-            
-            if(!sfx_vibrate.isPlaying) sfx_vibrate.Play();
-        }
-        else if(sfx_vibrate.isPlaying) sfx_vibrate.Stop();
-    }
 
+            if (!sfx_vibrate.isPlaying) sfx_vibrate.Play();
+        }
+        else if (sfx_vibrate.isPlaying)
+        {
+            sfx_vibrate.Stop();
+            _trailRenderer.enabled = true;
+        }
+
+    }    
     private void ChangeState(MagneticState newState)
     {
         if (newState == _state) return;
@@ -160,6 +169,7 @@ public class MagneticObject : MonoBehaviour
         if (_attractCoroutine != null) StopCoroutine(_attractCoroutine);
         if (_repelCoroutine != null) StopCoroutine(_repelCoroutine);
         Physics2D.IgnoreLayerCollision(6, 7, true);
+        _trailRenderer.enabled = true;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -191,6 +201,7 @@ public class MagneticObject : MonoBehaviour
 
     private void HitPlayer() {
         ChangeState(MagneticState.OnPlayer);
+        _trailRenderer.enabled = false;
 
         _rb.constraints = RigidbodyConstraints2D.FreezePosition;
         _attractFinalPosition = transform.position;
