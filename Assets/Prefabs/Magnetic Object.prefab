@@ -190,11 +190,11 @@ MonoBehaviour:
   polarityIcon: {fileID: 3046034576737345640}
   positiveColor: {r: 1, g: 0.2971698, b: 0.2971698, a: 1}
   negativeColor: {r: 0.22352941, g: 0.6431373, b: 1, a: 1}
-  attractionTime: 1
+  attractionTime: 1.3
   isTouchingCone: 0
-  vibrateAmount: 0.2
-  repelDistance: 7
-  repelTime: 1
+  vibrateAmount: 0.3
+  repelDistance: 16
+  repelTime: 1.3
   vibrateRange: 4
   cameraShakeMagnitudeOnCollision: 0.6
   sfx_vibrate: {fileID: 7234731908760595329}
