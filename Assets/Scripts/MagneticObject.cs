@@ -58,6 +58,8 @@ public class MagneticObject : MonoBehaviour
         parent = transform.parent.gameObject;
         repelSequence = DOTween.Sequence();
 
+        Physics2D.IgnoreLayerCollision(6, 7, true);
+
         UpdateSprite();
     }
     
@@ -110,6 +112,8 @@ public class MagneticObject : MonoBehaviour
         
         ChangeState(MagneticState.Attracted);
 
+        Physics2D.IgnoreLayerCollision(6, 7, false);
+
         StartCoroutine(AttractCoroutine());
         
         sfx_whoosh.Play();
@@ -117,6 +121,7 @@ public class MagneticObject : MonoBehaviour
 
     private void RepelObject()
     {
+        Physics2D.IgnoreLayerCollision(6, 7, false);
         StartCoroutine(RepelCoroutine());
     }
 
@@ -179,5 +184,6 @@ public class MagneticObject : MonoBehaviour
         }
         
         ChangeState(MagneticState.None);
+        Physics2D.IgnoreLayerCollision(6, 7, true);
     }
 }

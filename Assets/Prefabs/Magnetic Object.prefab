@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 7289301658274233240}
   - component: {fileID: 2549152972031711832}
   - component: {fileID: 1077549186395461179}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Magnetic Object
   m_TagString: Magnetic Object
   m_Icon: {fileID: 0}
