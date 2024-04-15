@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37971e8757694aefb181a72c4899a993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultHitstopTime: 0.25
+  defaultHitstopTime: 0.28
   hitstopShakeStrength: 1

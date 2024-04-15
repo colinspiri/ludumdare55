@@ -197,5 +197,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToFollow: {fileID: 0}
-  lookAheadDistance: 3.5
+  lookAheadDistance: 5.5
   moveSpeed: 3

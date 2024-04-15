@@ -262,7 +262,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   repelTime: 0.5
-  repelDistance: 16
+  repelDistance: 20
   cameraShakeMagnitudeOnCollision: 0.6
 --- !u!58 &2549152972031711832
 CircleCollider2D:
