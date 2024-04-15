@@ -13,8 +13,9 @@ public class AudioManager : MonoBehaviour {
     [Header("SFX")]
     [SerializeField] private AudioSource polarity_positive;
     [SerializeField] private AudioSource polarity_negative;
-    [SerializeField] private AudioSource hit_magnet;
     [SerializeField] private AudioSource splat;
+    [SerializeField] private AudioSource metal_hit_player;
+    [SerializeField] private AudioSource metal_hit_wall;
 
     private void Awake() {
         if (Instance != null) {
@@ -57,12 +58,15 @@ public class AudioManager : MonoBehaviour {
             polarity_negative.Play();
         }
     }
-
-    public void PlayHitMagnet() {
-        hit_magnet.Play();
-    }
-
+    
     public void PlaySplat() {
         splat.Play();
+    }
+
+    public void PlayMetalHitPlayer() {
+        metal_hit_player.Play();
+    }
+    public void PlayMetalHitWall() {
+        metal_hit_wall.Play();
     }
 }

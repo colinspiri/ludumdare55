@@ -160,13 +160,13 @@ public class MagneticObject : MonoBehaviour
         positionOnCollision = transform.position;
         
         CameraShake.Instance.Shake(cameraShakeMagnitudeOnCollision);
-        AudioManager.Instance.PlayHitMagnet();
+        AudioManager.Instance.PlayMetalHitPlayer();
     }
 
     private void HitWall()
     {
         ChangeState(MagneticState.None);
-        AudioManager.Instance.PlayHitMagnet();
+        AudioManager.Instance.PlayMetalHitWall();
     }
 
     private IEnumerator AttractCoroutine()
