@@ -33,7 +33,8 @@ public class MagneticObject : MonoBehaviour
     [SerializeField] private AnimationCurve repelCurve;
     [SerializeField] private float repelTime;
     [SerializeField] private float repelDistance;
-    [SerializeField] private float cameraShakeMagnitudeOnCollision;
+    [SerializeField] private float shakeOnHitPlayer;
+    [SerializeField] private float shakeOnHitObject;
 
     // state
     private Rigidbody2D _rb;
@@ -193,6 +194,7 @@ public class MagneticObject : MonoBehaviour
         if (other.gameObject.CompareTag("Magnetic Object"))
         {
             AudioManager.Instance.PlayMetalHitMetal();
+            CameraShake.Instance.Shake(shakeOnHitObject);
             Instantiate(clashParticles, transform.position, Quaternion.identity);
 
             var otherMagneticObject = other.gameObject.GetComponent<MagneticObject>();
@@ -208,7 +210,7 @@ public class MagneticObject : MonoBehaviour
         _rb.constraints = RigidbodyConstraints2D.FreezePosition;
         _attractFinalPosition = transform.position;
         
-        CameraShake.Instance.Shake(cameraShakeMagnitudeOnCollision);
+        CameraShake.Instance.Shake(shakeOnHitPlayer);
         AudioManager.Instance.PlayMetalHitPlayer();
     }
 
