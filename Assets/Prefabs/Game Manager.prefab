@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allEnemies: {fileID: 11400000, guid: 0675f78fbf294a142a205ad63ffef548, type: 2}
+  onWinDelay: 1
   onWin:
     m_PersistentCalls:
       m_Calls:

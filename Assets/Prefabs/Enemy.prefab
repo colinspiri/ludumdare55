@@ -136,7 +136,7 @@ MonoBehaviour:
   allEnemies: {fileID: 11400000, guid: 0675f78fbf294a142a205ad63ffef548, type: 2}
   speed: 6
   deathParticles: {fileID: 6412661672061040842, guid: 49a1fe43d99454a2cb32f0c787f806fb, type: 3}
-  pathFindingDistance: 20
+  pathFindingDistance: 25
 --- !u!50 &2118661151862225699
 Rigidbody2D:
   serializedVersion: 4
