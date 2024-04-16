@@ -45,8 +45,9 @@ public class MagneticObject : MonoBehaviour
     private Coroutine _attractCoroutine;
     private Coroutine _repelCoroutine;
     private Vector3 _onPlayerOffset;
+    public bool hasCollided;
 
-    private enum MagneticState { None, Attracted, Repelled, OnPlayer, OnWall }
+    public enum MagneticState { None, Attracted, Repelled, OnPlayer, OnWall }
     private MagneticState _state;
     public bool Moving => _state is MagneticState.Attracted or MagneticState.Repelled;
 
@@ -62,6 +63,7 @@ public class MagneticObject : MonoBehaviour
         _collider = GetComponent<Collider2D>();
         _coneCol = MagnetCone.Instance.GetComponent<Collider2D>();
         _trailRenderer = GetComponent<TrailRenderer>();
+        hasCollided = false;
 
         Physics2D.IgnoreLayerCollision(6, 7, true);
 
@@ -98,6 +100,8 @@ public class MagneticObject : MonoBehaviour
 
     private void CheckVibration()
     {
+        if (_state == MagneticState.OnPlayer) return;
+
         _colliderDistance = Physics2D.Distance(_collider, _coneCol).distance;
 
         if (_state == MagneticState.None && _colliderDistance < vibrateRange && MagnetCone.Instance.GetConePolarity() == polarity)
@@ -117,7 +121,7 @@ public class MagneticObject : MonoBehaviour
         }
 
     }    
-    private void ChangeState(MagneticState newState)
+    public void ChangeState(MagneticState newState)
     {
         if (newState == _state) return;
         var oldState = _state;
@@ -129,10 +133,12 @@ public class MagneticObject : MonoBehaviour
         else if (_state == MagneticState.OnPlayer) {
             // transform.SetParent(PlayerController.Instance.transform);
             _onPlayerOffset = PlayerController.Instance.transform.InverseTransformPoint(transform.position);
+            gameObject.layer = LayerMask.NameToLayer("Object On Player");
         }
 
         if (oldState == MagneticState.OnPlayer) {
             // transform.SetParent(_initialParent.transform);
+            gameObject.layer = LayerMask.NameToLayer("Object");
         }
 
         // Debug.Log(gameObject.name + " state = " + _state);

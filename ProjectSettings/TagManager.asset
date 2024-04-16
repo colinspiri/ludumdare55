@@ -19,8 +19,8 @@ TagManager:
   - Object
   - Enemy
   - Wall
-  - 
-  - 
+  - Player
+  - Object On Player
   - 
   - 
   - 
