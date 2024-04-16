@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.2216981, g: 0.6415714, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 344709e863731894cb0688cc38b847a0, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -189,11 +189,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clashParticles: {fileID: 2061909078969867791, guid: caccfcfbbe857284390a8eb8077242e4, type: 3}
   polarityIcon: {fileID: 3046034576737345640}
+  positiveSprite: {fileID: 21300000, guid: 344709e863731894cb0688cc38b847a0, type: 3}
+  negativeSprite: {fileID: 21300000, guid: 318d3b7ad5e4fb142857c330c3c18cef, type: 3}
   positiveColor: {r: 1, g: 0.2971698, b: 0.2971698, a: 1}
   negativeColor: {r: 0.22352941, g: 0.6431373, b: 1, a: 1}
   sfx_vibrate: {fileID: 7234731908760595329}
   sfx_whoosh: {fileID: 8861629937666647077}
-  polarity: 1
+  polarity: 0
   vibrateAmount: 0.3
   vibrateRange: 4
   attractionCurve:

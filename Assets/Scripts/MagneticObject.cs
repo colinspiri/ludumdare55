@@ -13,6 +13,8 @@ public class MagneticObject : MonoBehaviour
 
     [Header("Polarity")]
     [SerializeField] private SpriteRenderer polarityIcon;
+    [SerializeField] private Sprite positiveSprite;
+    [SerializeField] private Sprite negativeSprite;
     [SerializeField] private Color positiveColor;
     [SerializeField] private Color negativeColor;
     [Header("Audio")]
@@ -66,9 +68,16 @@ public class MagneticObject : MonoBehaviour
     }
     
     private void UpdateSprite() {
-        polarityIcon.color = polarity switch {
+/*        polarityIcon.color = polarity switch {
             Polarity.Positive => positiveColor,
             Polarity.Negative => negativeColor,
+            _ => throw new ArgumentOutOfRangeException()
+        };*/
+
+        polarityIcon.sprite = polarity switch
+        {
+            Polarity.Positive => positiveSprite,
+            Polarity.Negative => negativeSprite,
             _ => throw new ArgumentOutOfRangeException()
         };
     }
