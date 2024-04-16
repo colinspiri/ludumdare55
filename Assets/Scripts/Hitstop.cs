@@ -5,6 +5,7 @@ public class Hitstop : MonoBehaviour
 {
     public static Hitstop Instance;
 
+    public float hitstopTimeScale = 0f;
     [SerializeField] private float defaultHitstopTime = 1f;
     [SerializeField] private float hitstopShakeStrength = 0.4f;
 
@@ -23,7 +24,7 @@ public class Hitstop : MonoBehaviour
     {
         if (hitstopTime == 0) hitstopTime = defaultHitstopTime;
         
-        Time.timeScale = 0;
+        Time.timeScale = hitstopTimeScale;
 
         yield return new WaitForSecondsRealtime(hitstopTime);
 

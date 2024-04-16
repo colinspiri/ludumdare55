@@ -255,7 +255,7 @@ public class MagneticObject : MonoBehaviour
         var t = 0.0f;
         while (t < repelTime && _state == MagneticState.Repelled)
         {
-            if (Time.timeScale != 0) {
+            if (Time.timeScale > Hitstop.Instance.hitstopTimeScale) {
                 t += Time.deltaTime;
                 float f = repelCurve.Evaluate(t / repelTime);
                 transform.position = Vector3.Lerp(startingPosition, PlayerController.Instance.transform.position + PlayerController.Instance.transform.right * repelDistance, f);
