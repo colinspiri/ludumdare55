@@ -483,3 +483,6 @@ MonoBehaviour:
   coneSprite: {fileID: 6385840272525453110}
   positiveColor: {r: 1, g: 0.7019608, b: 0.7019608, a: 0.5019608}
   negativeColor: {r: 0.7019608, g: 0.8627451, b: 1, a: 0.5019608}
+  magnetSpriteRenderer: {fileID: 7387509221868673098}
+  positiveSprite: {fileID: 21300000, guid: 04a8f9d147123b34c9acd8e656d3da03, type: 3}
+  negativeSprite: {fileID: 21300000, guid: 4a61c443b2dfcfc4bb926b29003cc21a, type: 3}
